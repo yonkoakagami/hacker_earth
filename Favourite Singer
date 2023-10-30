@@ -1,0 +1,45 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+        //BufferedReader
+        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // String name = br.readLine();                // Reading input from STDIN
+        // System.out.println("Hi, " + name + ".");    // Writing output to STDOUT
+        Scanner scanner = new Scanner(System.in);
+
+        // Read the number of songs
+        int N = scanner.nextInt();
+// Read the list of singers for each song
+        long[] playlist = new long[N]; // Use long instead of int
+        for (int i = 0; i < N; i++) {
+            playlist[i] = scanner.nextLong(); // Use nextLong() to read long values
+        }
+
+        // Create a map to count the frequency of each singer
+        Map<Long, Integer> singerCount = new HashMap<>();
+        for (long singer : playlist) {
+            singerCount.put(singer, singerCount.getOrDefault(singer, 0) + 1);
+        }
+
+        // Find the maximum frequency (the number of songs sung by the favorite singer(s))
+        int maxFrequency = 0;
+        for (int frequency : singerCount.values()) {
+            maxFrequency = Math.max(maxFrequency, frequency);
+        }
+
+        // Count the number of favorite singers
+        int numFavoriteSingers = 0;
+        for (int frequency : singerCount.values()) {
+            if (frequency == maxFrequency) {
+                numFavoriteSingers++;
+            }
+        }
+
+        // Print the number of favorite singers
+        System.out.println(numFavoriteSingers);
+    }
+}
